@@ -38,6 +38,4 @@ oText x = text "textual" <+> text (show x)
 oConcat :: [Doc] -> Doc
 oConcat [] = text "return ()"
 oConcat [x] = x
-oConcat l = text "do" <+> braces (text "rec" <+> braces (hcat (punctuate (text ";") binds)) <> text ";" <> ret)
-  where binds = init l
-        ret = last l
+oConcat l = text "mdo" <+> braces (hcat (punctuate (text ";") l))
