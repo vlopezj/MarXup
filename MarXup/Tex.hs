@@ -13,7 +13,7 @@ import System.Directory (doesFileExist)
 import Data.Char (isSpace)
 import Data.Map (assocs)
 
-data ClassFile = Plain | LNCS | SIGPlan | IEEE | EPTCS | Beamer
+data ClassFile = Plain | LNCS | SIGPlan | IEEE | EPTCS | Beamer | EasyChair
   deriving Eq
 
 
