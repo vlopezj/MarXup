@@ -44,6 +44,13 @@ authorinfo' LNCS as = do
            where Just instIdx = elemIndex authorInst insts
         insts = nub $ map authorInst as
 
+authorinfo' EasyChair as = do
+  cmd "author" $ mconcat $ intersperse (cmd0 "and") $ map oneauthor as
+  cmd "institute" $ mconcat $ intersperse (cmd0 "and") $ map textual $ insts
+  where oneauthor AuthorInfo{..} = textual authorName <> (if length insts > 1 then cmd "inst" (textual $ show $ 1 + instIdx) else mempty)
+           where Just instIdx = elemIndex authorInst insts
+        insts = nub $ map authorInst as
+
 authorinfo' SIGPlan as = forM_ (groupBy ((==) `on` authorInst) as) $ \ (g@((AuthorInfo _ _ institution):_)) -> do
     let names = map authorName g
         emails = mconcat $ intersperse (cmd0 "and") $ map (textual . authorEmail) g
